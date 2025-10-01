@@ -1,0 +1,1170 @@
+{
+	"info": {
+		"_postman_id": "dashboard-monitor-api",
+		"name": "Dashboard Monitor Tender API",
+		"description": "Complete API documentation for Dashboard Monitor Tender Management System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{access_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5000/api",
+			"type": "string"
+		},
+		{
+			"key": "access_token",
+			"value": "",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    var jsonData = pm.response.json();",
+									"    pm.collectionVariables.set('access_token', jsonData.data.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"admin\",\n  \"password\": \"password123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						},
+						"description": "Login with username and password. Returns JWT token."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Current User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/auth/me",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"me"
+							]
+						},
+						"description": "Get current logged in user information"
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"old_password\": \"password123\",\n  \"new_password\": \"newpassword123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/change-password",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"change-password"
+							]
+						},
+						"description": "Change current user password"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/auth/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						},
+						"description": "Logout current user"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users?page=1&limit=10&role=petugas&search=",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "role",
+									"value": "petugas",
+									"description": "admin, supervisor, petugas"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "Search by username, email, or nama_lengkap"
+								},
+								{
+									"key": "is_active",
+									"value": "true",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get all users (Admin only). Supports filtering and pagination."
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "user_id_here"
+								}
+							]
+						},
+						"description": "Get user details by ID (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Petugas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/petugas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"petugas"
+							]
+						},
+						"description": "Get all active petugas for assignment dropdown (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"petugas4\",\n  \"email\": \"petugas4@tender.com\",\n  \"password\": \"password123\",\n  \"role\": \"petugas\",\n  \"nama_lengkap\": \"Petugas Lapangan 4\",\n  \"foto_profil\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						},
+						"description": "Create new user (Admin only). If password not provided, default is 'password123'"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"petugas4_updated\",\n  \"email\": \"petugas4.updated@tender.com\",\n  \"nama_lengkap\": \"Petugas Lapangan 4 Updated\",\n  \"role\": \"petugas\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "user_id_here"
+								}
+							]
+						},
+						"description": "Update user (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "user_id_here"
+								}
+							]
+						},
+						"description": "Soft delete user (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Toggle User Status",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/:id/status",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								":id",
+								"status"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "user_id_here"
+								}
+							]
+						},
+						"description": "Activate or deactivate user (Admin only)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "Get All Events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/events?page=1&limit=10&status=on_progress&search=",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"events"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "status",
+									"value": "on_progress",
+									"description": "planning, on_progress, completed, cancelled"
+								},
+								{
+									"key": "search",
+									"value": "",
+									"description": "Search by nama_tender or lokasi"
+								}
+							]
+						},
+						"description": "Get all events. Admin/Supervisor see all, Petugas see only assigned events."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/events/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"events",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "event_id_here"
+								}
+							]
+						},
+						"description": "Get event details with milestones, assigned petugas, and recent progress"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Event",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nama_tender\": \"Pembangunan Gedung Sekolah\",\n  \"lokasi\": \"Tangerang\",\n  \"deskripsi\": \"Pembangunan gedung sekolah 3 lantai\",\n  \"budget\": 12000000000,\n  \"tanggal_mulai\": \"2025-03-01\",\n  \"tanggal_selesai\": \"2025-12-31\",\n  \"status\": \"planning\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/events",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"events"
+							]
+						},
+						"description": "Create new event (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Event",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nama_tender\": \"Pembangunan Gedung Sekolah Updated\",\n  \"lokasi\": \"Tangerang Selatan\",\n  \"budget\": 13000000000,\n  \"status\": \"on_progress\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/events/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"events",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "event_id_here"
+								}
+							]
+						},
+						"description": "Update event (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Event",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/events/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"events",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "event_id_here"
+								}
+							]
+						},
+						"description": "Soft delete event (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Event Status",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"completed\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/events/:id/status",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"events",
+								":id",
+								"status"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "event_id_here"
+								}
+							]
+						},
+						"description": "Update event status (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Petugas to Event",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"petugas_ids\": [\n    \"petugas_id_1\",\n    \"petugas_id_2\"\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/events/:id/petugas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"events",
+								":id",
+								"petugas"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "event_id_here"
+								}
+							]
+						},
+						"description": "Assign multiple petugas to event (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Petugas from Event",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/events/:id/petugas/:petugasId",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"events",
+								":id",
+								"petugas",
+								":petugasId"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "event_id_here"
+								},
+								{
+									"key": "petugasId",
+									"value": "petugas_id_here"
+								}
+							]
+						},
+						"description": "Remove petugas from event (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event Petugas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/events/:id/petugas",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"events",
+								":id",
+								"petugas"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "event_id_here"
+								}
+							]
+						},
+						"description": "Get all petugas assigned to event"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Milestones",
+			"item": [
+				{
+					"name": "Get Milestones by Event",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/events/:eventId/milestones",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"events",
+								":eventId",
+								"milestones"
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "event_id_here"
+								}
+							]
+						},
+						"description": "Get all milestones for specific event"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Milestone by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/milestones/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"milestones",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "milestone_id_here"
+								}
+							]
+						},
+						"description": "Get milestone details by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Milestone",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nama_milestone\": \"Testing dan QA\",\n  \"deskripsi\": \"Testing kualitas dan quality assurance\",\n  \"deadline\": \"2025-11-30\",\n  \"urutan\": 5,\n  \"status\": \"pending\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/events/:eventId/milestones",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"events",
+								":eventId",
+								"milestones"
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "event_id_here"
+								}
+							]
+						},
+						"description": "Create new milestone for event (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Milestone",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nama_milestone\": \"Testing dan QA Updated\",\n  \"deadline\": \"2025-12-05\",\n  \"status\": \"on_progress\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/milestones/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"milestones",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "milestone_id_here"
+								}
+							]
+						},
+						"description": "Update milestone (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Milestone",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/milestones/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"milestones",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "milestone_id_here"
+								}
+							]
+						},
+						"description": "Soft delete milestone (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Milestone Status",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"completed\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/milestones/:id/status",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"milestones",
+								":id",
+								"status"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "milestone_id_here"
+								}
+							]
+						},
+						"description": "Update milestone status (Admin only)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Progress Reports",
+			"item": [
+				{
+					"name": "Get Progress by Event",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/events/:eventId/progress?page=1&limit=10&milestone_id=&petugas_id=",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"events",
+								":eventId",
+								"progress"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "milestone_id",
+									"value": ""
+								},
+								{
+									"key": "petugas_id",
+									"value": ""
+								}
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "event_id_here"
+								}
+							]
+						},
+						"description": "Get all progress reports for event. Petugas see only their own progress."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Progress by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/progress/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"progress",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "progress_id_here"
+								}
+							]
+						},
+						"description": "Get progress report details by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Progress Report",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photos",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "photos",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "deskripsi",
+									"value": "Progress pembangunan hari ini mencapai 75%",
+									"type": "text"
+								},
+								{
+									"key": "tanggal_laporan",
+									"value": "2025-06-15",
+									"type": "text"
+								},
+								{
+									"key": "persentase_progress",
+									"value": "75",
+									"type": "text"
+								},
+								{
+									"key": "milestone_id",
+									"value": "milestone_id_here",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/events/:eventId/progress",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"events",
+								":eventId",
+								"progress"
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "event_id_here"
+								}
+							]
+						},
+						"description": "Create progress report with photos (Petugas only). Must be assigned to the event."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Progress Report",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "deskripsi",
+									"value": "Progress updated: mencapai 80%",
+									"type": "text"
+								},
+								{
+									"key": "persentase_progress",
+									"value": "80",
+									"type": "text"
+								},
+								{
+									"key": "photos",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/progress/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"progress",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "progress_id_here"
+								}
+							]
+						},
+						"description": "Update progress report (Owner only). Can add more photos."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Progress Report",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/progress/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"progress",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "progress_id_here"
+								}
+							]
+						},
+						"description": "Soft delete progress report (Owner only)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dashboard",
+			"item": [
+				{
+					"name": "Get Dashboard Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/dashboard/stats",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"dashboard",
+								"stats"
+							]
+						},
+						"description": "Get dashboard statistics (Admin & Supervisor only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Events Summary",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/dashboard/events-summary?limit=10&status=",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"dashboard",
+								"events-summary"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "status",
+									"value": "",
+									"description": "planning, on_progress, completed, cancelled"
+								}
+							]
+						},
+						"description": "Get events summary with progress percentage (Admin & Supervisor only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Recent Activities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/dashboard/recent-activities?limit=20",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"dashboard",
+								"recent-activities"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						},
+						"description": "Get recent progress activities (Admin & Supervisor only)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Upload",
+			"item": [
+				{
+					"name": "Upload Progress Photos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photos",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "photos",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "photos",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/upload/progress-photos",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"upload",
+								"progress-photos"
+							]
+						},
+						"description": "Pre-upload photos before creating progress report (Petugas only). Returns array of image URLs."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Health Check",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"health"
+					]
+				},
+				"description": "Check if server is running"
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,128 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  supervisor
+  admin
+  petugas
+}
+
+enum EventStatus {
+  planning
+  on_progress
+  completed
+  cancelled
+}
+
+enum MilestoneStatus {
+  pending
+  on_progress
+  completed
+}
+
+model User {
+  id            String   @id @default(uuid())
+  username      String   @unique
+  email         String   @unique
+  password      String
+  role          Role
+  nama_lengkap  String
+  foto_profil   String?
+  is_active     Boolean  @default(true)
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  // Relations
+  created_events     Event[]         @relation("CreatedEvents")
+  assigned_events    EventPetugas[]
+  progress_reports   ProgressReport[]
+  assignments_made   EventPetugas[]  @relation("AssignedBy")
+
+  @@map("users")
+}
+
+model Event {
+  id              String      @id @default(uuid())
+  nama_tender     String
+  lokasi          String
+  deskripsi       String?
+  budget          Decimal?    @db.Decimal(15, 2)
+  tanggal_mulai   DateTime    @db.Date
+  tanggal_selesai DateTime    @db.Date
+  status          EventStatus @default(planning)
+  created_by      String
+  is_active       Boolean     @default(true)
+  created_at      DateTime    @default(now())
+  updated_at      DateTime    @updatedAt
+
+  // Relations
+  creator          User             @relation("CreatedEvents", fields: [created_by], references: [id])
+  milestones       Milestone[]
+  assigned_petugas EventPetugas[]
+  progress_reports ProgressReport[]
+
+  @@map("events")
+}
+
+model Milestone {
+  id              String          @id @default(uuid())
+  event_id        String
+  nama_milestone  String
+  deskripsi       String?
+  deadline        DateTime        @db.Date
+  status          MilestoneStatus @default(pending)
+  urutan          Int
+  is_active       Boolean         @default(true)
+  created_at      DateTime        @default(now())
+  updated_at      DateTime        @updatedAt
+
+  // Relations
+  event            Event            @relation(fields: [event_id], references: [id], onDelete: Cascade)
+  progress_reports ProgressReport[]
+
+  @@unique([event_id, urutan])
+  @@map("milestones")
+}
+
+model EventPetugas {
+  id          String   @id @default(uuid())
+  event_id    String
+  petugas_id  String
+  assigned_by String
+  assigned_at DateTime @default(now())
+
+  // Relations
+  event            Event @relation(fields: [event_id], references: [id], onDelete: Cascade)
+  petugas          User  @relation(fields: [petugas_id], references: [id], onDelete: Cascade)
+  assigned_by_user User  @relation("AssignedBy", fields: [assigned_by], references: [id])
+
+  @@unique([event_id, petugas_id])
+  @@map("event_petugas")
+}
+
+model ProgressReport {
+  id                  String   @id @default(uuid())
+  event_id            String
+  milestone_id        String?
+  petugas_id          String
+  deskripsi           String
+  foto_urls           Json
+  tanggal_laporan     DateTime @db.Date
+  persentase_progress Int      @default(0) @db.SmallInt
+  is_active           Boolean  @default(true)
+  created_at          DateTime @default(now())
+  updated_at          DateTime @updatedAt
+
+  // Relations
+  event     Event      @relation(fields: [event_id], references: [id], onDelete: Cascade)
+  milestone Milestone? @relation(fields: [milestone_id], references: [id], onDelete: SetNull)
+  petugas   User       @relation(fields: [petugas_id], references: [id])
+
+  @@map("progress_reports")
+}
