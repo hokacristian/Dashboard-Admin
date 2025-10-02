@@ -5,18 +5,18 @@ const cors = require('cors');
 const rateLimit = require('express-rate-limit');
 
 // Middleware imports
-const { errorHandler, notFoundHandler } = require('./middleware/errorMiddleware');
+const { errorHandler, notFoundHandler } = require('./src/middleware/errorMiddleware');
 
 // Route imports
-const authRoutes = require('./routes/authRoutes');
-const usersRoutes = require('./routes/usersRoutes');
-const eventsRoutes = require('./routes/eventsRoutes');
-const milestonesRoutes = require('./routes/milestonesRoutes');
-const eventMilestonesRoutes = require('./routes/eventMilestonesRoutes');
-const progressRoutes = require('./routes/progressRoutes');
-const eventProgressRoutes = require('./routes/eventProgressRoutes');
-const dashboardRoutes = require('./routes/dashboardRoutes');
-const uploadRoutes = require('./routes/uploadRoutes');
+const authRoutes = require('./src/routes/authRoutes');
+const usersRoutes = require('./src/routes/usersRoutes');
+const eventsRoutes = require('./src/routes/eventsRoutes');
+const milestonesRoutes = require('./src/routes/milestonesRoutes');
+const eventMilestonesRoutes = require('./src/routes/eventMilestonesRoutes');
+const progressRoutes = require('./src/routes/progressRoutes');
+const eventProgressRoutes = require('./src/routes/eventProgressRoutes');
+const dashboardRoutes = require('./src/routes/dashboardRoutes');
+const uploadRoutes = require('./src/routes/uploadRoutes');
 
 // Initialize Express app
 const app = express();
@@ -81,28 +81,5 @@ app.use(notFoundHandler);
 
 // Global error handler (must be last)
 app.use(errorHandler);
-
-// Start server
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`📝 Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`🌐 CORS enabled for: ${process.env.FRONTEND_URL || 'http://localhost:3000'}`);
-});
-
-// Handle unhandled promise rejections
-process.on('unhandledRejection', (err) => {
-  console.error('❌ Unhandled Promise Rejection:', err);
-  // Close server & exit process
-  process.exit(1);
-});
-
-// Handle uncaught exceptions
-process.on('uncaughtException', (err) => {
-  console.error('❌ Uncaught Exception:', err);
-  // Close server & exit process
-  process.exit(1);
-});
 
 module.exports = app;
