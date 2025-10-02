@@ -72,7 +72,7 @@
 								"login"
 							]
 						},
-						"description": "Login with username and password. Returns JWT token."
+						"description": "Login with username and password. Returns JWT token.\n\n**Example Success Response (200 OK):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Login berhasil\",\n    \"data\": {\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjOThmYjRjMi0zYjZmLTQxYmQtYjM5ZC0zZGYzZTAxZmMzZTciLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MjkzODU2MDAsImV4cCI6MTcyOTQ3MjAwMH0.fake_token_signature\"\n    }\n}\n```"
 					},
 					"response": []
 				},
@@ -91,7 +91,7 @@
 								"me"
 							]
 						},
-						"description": "Get current logged in user information"
+						"description": "Get current logged in user information\n\n**Example Success Response (200 OK):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Data pengguna berhasil diambil\",\n    \"data\": {\n        \"id\": \"c98fb4c2-3b6f-41bd-b39d-3df3e01fc3e7\",\n        \"username\": \"admin\",\n        \"email\": \"admin@tender.com\",\n        \"nama_lengkap\": \"Administrator\",\n        \"role\": \"admin\",\n        \"foto_profil\": \"https://example.com/profiles/admin.jpg\",\n        \"is_active\": true,\n        \"created_at\": \"2025-10-01T08:00:00.000Z\"\n    }\n}\n```"
 					},
 					"response": []
 				},
@@ -119,7 +119,7 @@
 								"change-password"
 							]
 						},
-						"description": "Change current user password"
+						"description": "Change current user password\n\n**Example Success Response (200 OK):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Password berhasil diubah\"\n}\n```"
 					},
 					"response": []
 				},
@@ -138,7 +138,7 @@
 								"logout"
 							]
 						},
-						"description": "Logout current user"
+						"description": "Logout current user\n\n**Example Success Response (200 OK):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Logout berhasil\"\n}\n```"
 					},
 					"response": []
 				}
@@ -186,7 +186,7 @@
 								}
 							]
 						},
-						"description": "Get all users (Admin only). Supports filtering and pagination."
+						"description": "Get all users (Admin only). Supports filtering and pagination.\n\n**Example Success Response (200 OK):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Data semua pengguna berhasil diambil\",\n    \"data\": [\n        {\n            \"id\": \"a1b2c3d4-e5f6-7890-1234-567890abcdef\",\n            \"username\": \"petugas1\",\n            \"email\": \"petugas1@tender.com\",\n            \"nama_lengkap\": \"Petugas Lapangan 1\",\n            \"role\": \"petugas\",\n            \"is_active\": true\n        }\n    ],\n    \"meta\": {\n        \"page\": 1,\n        \"limit\": 10,\n        \"total_pages\": 3,\n        \"total_items\": 25\n    }\n}\n```"
 					},
 					"response": []
 				},
@@ -211,7 +211,7 @@
 								}
 							]
 						},
-						"description": "Get user details by ID (Admin only)"
+						"description": "Get user details by ID (Admin only)\n\n**Example Success Response (200 OK):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Data pengguna berhasil ditemukan\",\n    \"data\": {\n        \"id\": \"a1b2c3d4-e5f6-7890-1234-567890abcdef\",\n        \"username\": \"petugas1\",\n        \"email\": \"petugas1@tender.com\",\n        \"nama_lengkap\": \"Petugas Lapangan 1\",\n        \"role\": \"petugas\",\n        \"foto_profil\": null,\n        \"is_active\": true,\n        \"created_at\": \"2025-10-02T10:00:00.000Z\",\n        \"updated_at\": \"2025-10-02T10:00:00.000Z\"\n    }\n}\n```"
 					},
 					"response": []
 				},
@@ -230,7 +230,7 @@
 								"petugas"
 							]
 						},
-						"description": "Get all active petugas for assignment dropdown (Admin only)"
+						"description": "Get all active petugas for assignment dropdown (Admin only)\n\n**Example Success Response (200 OK):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Data semua petugas berhasil diambil\",\n    \"data\": [\n        {\n            \"id\": \"a1b2c3d4-e5f6-7890-1234-567890abcdef\",\n            \"nama_lengkap\": \"Petugas Lapangan 1\"\n        },\n        {\n            \"id\": \"b2c3d4e5-f6a7-8901-2345-67890abcdef1\",\n            \"nama_lengkap\": \"Petugas Lapangan 2\"\n        }\n    ]\n}\n```"
 					},
 					"response": []
 				},
@@ -257,7 +257,7 @@
 								"users"
 							]
 						},
-						"description": "Create new user (Admin only). If password not provided, default is 'password123'"
+						"description": "Create new user (Admin only). If password not provided, default is 'password123'\n\n**Example Success Response (201 Created):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Pengguna baru berhasil dibuat\",\n    \"data\": {\n        \"id\": \"b2c3d4e5-f6a7-8901-2345-67890abcdef1\",\n        \"username\": \"petugas4\",\n        \"email\": \"petugas4@tender.com\",\n        \"nama_lengkap\": \"Petugas Lapangan 4\",\n        \"role\": \"petugas\",\n        \"is_active\": true\n    }\n}\n```"
 					},
 					"response": []
 				},
@@ -291,7 +291,7 @@
 								}
 							]
 						},
-						"description": "Update user (Admin only)"
+						"description": "Update user (Admin only)\n\n**Example Success Response (200 OK):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Pengguna berhasil diperbarui\",\n    \"data\": {\n        \"id\": \"b2c3d4e5-f6a7-8901-2345-67890abcdef1\",\n        \"username\": \"petugas4_updated\",\n        \"email\": \"petugas4.updated@tender.com\",\n        \"nama_lengkap\": \"Petugas Lapangan 4 Updated\",\n        \"role\": \"petugas\"\n    }\n}\n```"
 					},
 					"response": []
 				},
@@ -316,7 +316,7 @@
 								}
 							]
 						},
-						"description": "Soft delete user (Admin only)"
+						"description": "Soft delete user (Admin only)\n\n**Example Success Response (200 OK):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Pengguna berhasil dihapus\"\n}\n```"
 					},
 					"response": []
 				},
@@ -342,7 +342,7 @@
 								}
 							]
 						},
-						"description": "Activate or deactivate user (Admin only)"
+						"description": "Activate or deactivate user (Admin only)\n\n**Example Success Response (200 OK):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Status pengguna berhasil diperbarui\",\n    \"data\": {\n        \"id\": \"b2c3d4e5-f6a7-8901-2345-67890abcdef1\",\n        \"is_active\": false\n    }\n}\n```"
 					},
 					"response": []
 				}
@@ -385,7 +385,7 @@
 								}
 							]
 						},
-						"description": "Get all events. Admin/Supervisor see all, Petugas see only assigned events."
+						"description": "Get all events. Admin/Supervisor see all, Petugas see only assigned events.\n\n**Example Success Response (200 OK):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Data semua tender berhasil diambil\",\n    \"data\": [\n        {\n            \"id\": \"evt-12345\",\n            \"nama_tender\": \"Pembangunan Jembatan Merah Putih\",\n            \"lokasi\": \"Ambon\",\n            \"status\": \"on_progress\",\n            \"progress_percentage\": 65.5,\n            \"tanggal_selesai\": \"2026-08-17T00:00:00.000Z\"\n        }\n    ],\n    \"meta\": {\n        \"page\": 1,\n        \"limit\": 10,\n        \"total_pages\": 2,\n        \"total_items\": 15\n    }\n}\n```"
 					},
 					"response": []
 				},
@@ -410,7 +410,7 @@
 								}
 							]
 						},
-						"description": "Get event details with milestones, assigned petugas, and recent progress"
+						"description": "Get event details with milestones, assigned petugas, and recent progress\n\n**Example Success Response (200 OK):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Detail tender berhasil diambil\",\n    \"data\": {\n        \"id\": \"evt-12345\",\n        \"nama_tender\": \"Pembangunan Jembatan Merah Putih\",\n        \"lokasi\": \"Ambon\",\n        \"deskripsi\": \"Pembangunan jembatan strategis untuk menghubungkan dua wilayah.\",\n        \"budget\": 250000000000,\n        \"status\": \"on_progress\",\n        \"tanggal_mulai\": \"2025-01-15T00:00:00.000Z\",\n        \"tanggal_selesai\": \"2026-08-17T00:00:00.000Z\",\n        \"progress_percentage\": 65.5,\n        \"assigned_petugas\": [\n            {\n                \"id\": \"a1b2c3d4-e5f6-7890-1234-567890abcdef\",\n                \"nama_lengkap\": \"Petugas Lapangan 1\"\n            }\n        ],\n        \"milestones\": [\n            {\n                \"id\": \"mil-abcde\",\n                \"nama_milestone\": \"Pengecoran Pilar Utama\",\n                \"status\": \"completed\",\n                \"deadline\": \"2025-09-30T00:00:00.000Z\"\n            },\n            {\n                \"id\": \"mil-fghij\",\n                \"nama_milestone\": \"Pemasangan Rangka Baja\",\n                \"status\": \"on_progress\",\n                \"deadline\": \"2025-12-20T00:00:00.000Z\"\n            }\n        ]\n    }\n}\n```"
 					},
 					"response": []
 				},
@@ -437,7 +437,7 @@
 								"events"
 							]
 						},
-						"description": "Create new event (Admin only)"
+						"description": "Create new event (Admin only)\n\n**Example Success Response (201 Created):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Tender baru berhasil dibuat\",\n    \"data\": {\n        \"id\": \"evt-99999\",\n        \"nama_tender\": \"Pembangunan Gedung Sekolah\",\n        \"lokasi\": \"Tangerang\",\n        \"status\": \"planning\",\n        \"created_at\": \"2025-10-03T10:00:00.000Z\"\n    }\n}\n```"
 					},
 					"response": []
 				},
@@ -471,7 +471,7 @@
 								}
 							]
 						},
-						"description": "Update event (Admin only)"
+						"description": "Update event (Admin only)\n\n**Example Success Response (200 OK):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Tender berhasil diperbarui\",\n    \"data\": {\n        \"id\": \"evt-99999\",\n        \"nama_tender\": \"Pembangunan Gedung Sekolah Updated\",\n        \"lokasi\": \"Tangerang Selatan\",\n        \"budget\": 13000000000,\n        \"status\": \"on_progress\"\n    }\n}\n```"
 					},
 					"response": []
 				},
@@ -496,7 +496,7 @@
 								}
 							]
 						},
-						"description": "Soft delete event (Admin only)"
+						"description": "Soft delete event (Admin only)\n\n**Example Success Response (200 OK):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Tender berhasil dihapus\"\n}\n```"
 					},
 					"response": []
 				},
@@ -531,7 +531,7 @@
 								}
 							]
 						},
-						"description": "Update event status (Admin only)"
+						"description": "Update event status (Admin only)\n\n**Example Success Response (200 OK):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Status tender berhasil diperbarui\",\n    \"data\": {\n        \"id\": \"evt-99999\",\n        \"status\": \"completed\"\n    }\n}\n```"
 					},
 					"response": []
 				},
@@ -566,7 +566,7 @@
 								}
 							]
 						},
-						"description": "Assign multiple petugas to event (Admin only)"
+						"description": "Assign multiple petugas to event (Admin only)\n\n**Example Success Response (200 OK):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Petugas berhasil ditugaskan ke tender\"\n}\n```"
 					},
 					"response": []
 				},
@@ -597,7 +597,7 @@
 								}
 							]
 						},
-						"description": "Remove petugas from event (Admin only)"
+						"description": "Remove petugas from event (Admin only)\n\n**Example Success Response (200 OK):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Petugas berhasil dihapus dari tender\"\n}\n```"
 					},
 					"response": []
 				},
@@ -623,7 +623,7 @@
 								}
 							]
 						},
-						"description": "Get all petugas assigned to event"
+						"description": "Get all petugas assigned to event\n\n**Example Success Response (200 OK):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Data petugas untuk tender berhasil diambil\",\n    \"data\": [\n        {\n            \"id\": \"petugas_id_1\",\n            \"nama_lengkap\": \"Petugas Satu\"\n        },\n        {\n            \"id\": \"petugas_id_2\",\n            \"nama_lengkap\": \"Petugas Dua\"\n        }\n    ]\n}\n```"
 					},
 					"response": []
 				}
@@ -654,7 +654,7 @@
 								}
 							]
 						},
-						"description": "Get all milestones for specific event"
+						"description": "Get all milestones for specific event\n\n**Example Success Response (200 OK):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Milestone untuk tender berhasil diambil\",\n    \"data\": [\n        {\n            \"id\": \"mil-abcde\",\n            \"nama_milestone\": \"Pengecoran Pilar Utama\",\n            \"status\": \"completed\",\n            \"deadline\": \"2025-09-30T00:00:00.000Z\",\n            \"urutan\": 1\n        },\n        {\n            \"id\": \"mil-fghij\",\n            \"nama_milestone\": \"Pemasangan Rangka Baja\",\n            \"status\": \"on_progress\",\n            \"deadline\": \"2025-12-20T00:00:00.000Z\",\n            \"urutan\": 2\n        }\n    ]\n}\n```"
 					},
 					"response": []
 				},
@@ -679,7 +679,7 @@
 								}
 							]
 						},
-						"description": "Get milestone details by ID"
+						"description": "Get milestone details by ID\n\n**Example Success Response (200 OK):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Detail milestone berhasil diambil\",\n    \"data\": {\n        \"id\": \"mil-fghij\",\n        \"nama_milestone\": \"Pemasangan Rangka Baja\",\n        \"deskripsi\": \"Pemasangan seluruh rangka atap dan dinding baja.\",\n        \"deadline\": \"2025-12-20T00:00:00.000Z\",\n        \"status\": \"on_progress\",\n        \"urutan\": 2,\n        \"event_id\": \"evt-12345\"\n    }\n}\n```"
 					},
 					"response": []
 				},
@@ -714,7 +714,7 @@
 								}
 							]
 						},
-						"description": "Create new milestone for event (Admin only)"
+						"description": "Create new milestone for event (Admin only)\n\n**Example Success Response (201 Created):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Milestone baru berhasil dibuat\",\n    \"data\": {\n        \"id\": \"mil-klmno\",\n        \"event_id\": \"evt-12345\",\n        \"nama_milestone\": \"Finishing dan Pengecatan\",\n        \"deadline\": \"2026-07-01T00:00:00.000Z\",\n        \"status\": \"pending\",\n        \"urutan\": 3\n    }\n}\n```"
 					},
 					"response": []
 				},
@@ -748,7 +748,7 @@
 								}
 							]
 						},
-						"description": "Update milestone (Admin only)"
+						"description": "Update milestone (Admin only)\n\n**Example Success Response (200 OK):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Milestone berhasil diperbarui\",\n    \"data\": {\n        \"id\": \"mil-fghij\",\n        \"nama_milestone\": \"Testing dan QA Updated\",\n        \"deadline\": \"2025-12-05T00:00:00.000Z\",\n        \"status\": \"on_progress\"\n    }\n}\n```"
 					},
 					"response": []
 				},
@@ -773,7 +773,7 @@
 								}
 							]
 						},
-						"description": "Soft delete milestone (Admin only)"
+						"description": "Soft delete milestone (Admin only)\n\n**Example Success Response (200 OK):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Milestone berhasil dihapus\"\n}\n```"
 					},
 					"response": []
 				},
@@ -808,7 +808,7 @@
 								}
 							]
 						},
-						"description": "Update milestone status (Admin only)"
+						"description": "Update milestone status (Admin only)\n\n**Example Success Response (200 OK):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Status milestone berhasil diperbarui\",\n    \"data\": {\n        \"id\": \"mil-fghij\",\n        \"status\": \"completed\"\n    }\n}\n```"
 					},
 					"response": []
 				}
@@ -857,7 +857,7 @@
 								}
 							]
 						},
-						"description": "Get all progress reports for event. Petugas see only their own progress."
+						"description": "Get all progress reports for event. Petugas see only their own progress.\n\n**Example Success Response (200 OK):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Laporan progress berhasil diambil\",\n    \"data\": [\n        {\n            \"id\": \"prog-9876\",\n            \"deskripsi\": \"Pemasangan rangka baja sisi utara telah selesai.\",\n            \"persentase_progress\": 78.0,\n            \"tanggal_laporan\": \"2025-11-25T00:00:00.000Z\",\n            \"photos\": [\n                \"https://img.server.com/path/to/photo1.jpg\"\n            ],\n            \"created_by\": {\n                \"id\": \"a1b2c3d4-e5f6-7890-1234-567890abcdef\",\n                \"nama_lengkap\": \"Petugas Lapangan 1\"\n            },\n            \"milestone\": {\n                \"id\": \"mil-fghij\",\n                \"nama_milestone\": \"Pemasangan Rangka Baja\"\n            }\n        }\n    ],\n    \"meta\": {\n        \"page\": 1,\n        \"limit\": 10,\n        \"total_pages\": 5,\n        \"total_items\": 48\n    }\n}\n```"
 					},
 					"response": []
 				},
@@ -882,7 +882,7 @@
 								}
 							]
 						},
-						"description": "Get progress report details by ID"
+						"description": "Get progress report details by ID\n\n**Example Success Response (200 OK):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Detail laporan progress berhasil diambil\",\n    \"data\": {\n        \"id\": \"prog-9876\",\n        \"deskripsi\": \"Pemasangan rangka baja sisi utara telah selesai.\",\n        \"persentase_progress\": 78.0,\n        \"tanggal_laporan\": \"2025-11-25T00:00:00.000Z\",\n        \"photos\": [\n            \"https://img.server.com/path/to/photo1.jpg\"\n        ],\n        \"created_by\": {\n            \"id\": \"a1b2c3d4-e5f6-7890-1234-567890abcdef\",\n            \"nama_lengkap\": \"Petugas Lapangan 1\"\n        },\n        \"milestone\": {\n            \"id\": \"mil-fghij\",\n            \"nama_milestone\": \"Pemasangan Rangka Baja\"\n        },\n        \"event\": {\n            \"id\": \"evt-12345\",\n            \"nama_tender\": \"Pembangunan Jembatan Merah Putih\"\n        }\n    }\n}\n```"
 					},
 					"response": []
 				},
@@ -943,7 +943,7 @@
 								}
 							]
 						},
-						"description": "Create progress report with photos (Petugas only). Must be assigned to the event."
+						"description": "Create progress report with photos (Petugas only). Must be assigned to the event.\n\n**Example Success Response (201 Created):**\n```json\n{\n    \"success\": true,\n    \"message\": \"Laporan progress berhasil dibuat\",\n    \"data\": {\n        \"id\": \"prog-5432\",\n        \"event_id\": \"evt-12345\",\n        \"milestone_id\": \"mil-fghij\",\n        \"deskripsi\": \"Pekerjaan hari ini berjalan lancar.\",\n        \"persentase_progress\": 80.0,\n        \"tanggal_laporan\": \"2025-11-26T00:00:00.000Z\",\n        \"photos\": [\n            \"https://img.server.com/path/to/new_photo.jpg\"\n        ]\n    }\n}\n```"
 					},
 					"response": []
 				},
